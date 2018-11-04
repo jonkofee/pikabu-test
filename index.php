@@ -1,2 +1,4 @@
 <?php
-echo phpinfo();
+require 'core/ClassLoader.php';
+
+new \Core\ClassLoader([ 'src' ]);
