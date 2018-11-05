@@ -99,14 +99,14 @@ abstract class Controller
 			$validateRule = $this->validateRules[$field];
 
 			if (isset($validateRule['regexp'])) {
-				if (!preg_match($validateRule['regexp'], $this->{$key})) {
+				if (!preg_match($validateRule['regexp'], $this->{$field})) {
 					$errors[] = $validateRule['message'];
 				}
 				continue;
 			}
 
 			if (isset($validateRule['filter'])) {
-				if (!filter_var($this->{$key}, $validateRule['filter'])) {
+				if (!filter_var($this->{$field}, $validateRule['filter'])) {
 					$errors[] = $validateRule['message'];
 				}
 			}
