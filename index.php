@@ -1,4 +1,5 @@
 <?php
+error_reporting(E_ALL & ~E_WARNING);
 require 'core/ClassLoader.php';
 
 new \Core\ClassLoader([ 'src' ]);
@@ -12,5 +13,5 @@ try {
 
 	echo $dispatcher->handle();
 } catch (\Exception $e) {
-	echo new \Core\Response($e->getMessage(), $e->getCode());
+	echo new \Core\Response($e->getMessage(), $e->getCode() | 500);
 }
