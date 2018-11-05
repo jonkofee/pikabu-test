@@ -44,6 +44,15 @@ class User extends Controller
 
 	public function addAction()
 	{
+		$this->validate([
+			'name',
+			'password',
+			'email',
+			'dob',
+			'gender',
+			'phone'
+		]);
+
 		$name 			= $this->name;
 		$password 	= $this->password;
 		$email 			= $this->email;
@@ -66,6 +75,15 @@ class User extends Controller
 	 */
 	public function editAction()
 	{
+		$this->validate([
+			'name',
+			'password',
+			'email',
+			'dob',
+			'gender',
+			'phone'
+		]);
+
 		$id 				= $this->getCurrentUser()['id'];
 		$name 			= $this->name;
 		$password 	= $this->password;
@@ -108,6 +126,12 @@ class User extends Controller
 
 	public function listAction()
 	{
+		$this->validate([
+			'gender',
+			'age_min',
+			'age_max'
+		]);
+
 		$gender = $this->gender;
 		$ageMin = $this->age_min;
 		$ageMax = $this->age_max;

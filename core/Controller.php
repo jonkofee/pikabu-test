@@ -87,12 +87,17 @@ abstract class Controller
 		return $this->_currentUser;
 	}
 
-	public function validate()
+	public function validate(array $fields)
 	{
-		$validateRules = $this->validateRules;
 		$errors = [];
 
-		foreach ($validateRules as $key => $validateRule) {
+		foreach ($fields as $field) {
+			if (!isset($this->validateRules[$field])) {
+				throw new Exception("Не установлено правило валидации для поля $field", 500);
+			}
+
+			$validateRule = $this->validateRules[$field];
+
 			if (isset($validateRule['regexp'])) {
 				if (!preg_match($validateRule['regexp'], $this->{$key})) {
 					$errors[] = $validateRule['message'];
