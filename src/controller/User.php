@@ -7,6 +7,9 @@ use Core\Controller;
 class User extends Controller
 {
 
+	/**
+	 * @var array
+	 */
 	protected $validateRules = [
 		'name' => [
 			'regexp' => '/^[a-zA-zа-яА-Я.-]+$/',
@@ -42,7 +45,11 @@ class User extends Controller
 		]
 	];
 
-	public function addAction()
+	/**
+	 * @return array
+	 * @throws \Core\Exception
+	 */
+	public function addAction(): array
 	{
 		$this->validate([
 			'name',
@@ -124,6 +131,10 @@ class User extends Controller
 		$model->delete($id);
 	}
 
+	/**
+	 * @return array
+	 * @throws \Core\Exception
+	 */
 	public function listAction()
 	{
 		$this->validate([

@@ -41,10 +41,10 @@ class Dispatcher
 	}
 
 	/**
-	 * @return mixed
+	 * @return Response
 	 * @throws \Exception
 	 */
-	public function handle()
+	public function handle(): Response
 	{
 		$this->_checkAccess();
 
@@ -80,7 +80,7 @@ class Dispatcher
 	 * @return bool
 	 * @throws \ReflectionException | \Exception
 	 */
-	private function _checkAccess()
+	private function _checkAccess(): bool
 	{
 		$reflector = new \ReflectionClass('Controller\\' . $this->_router->getController());
 

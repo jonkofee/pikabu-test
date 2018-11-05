@@ -7,6 +7,9 @@ use Core\Controller;
 class Auth extends Controller
 {
 
+	/**
+	 * @var array
+	 */
 	protected $validateRules = [
 		'email' => [
 			'filter' => FILTER_VALIDATE_EMAIL,
@@ -18,7 +21,11 @@ class Auth extends Controller
 		]
 	];
 
-	public function indexAction()
+	/**
+	 * @return string
+	 * @throws \Exception
+	 */
+	public function indexAction(): string
 	{
 		$email 		= $this->email;
 		$password = $this->password;

@@ -64,7 +64,7 @@ class Request
 		return $this->_data[$name] ?? null;
 	}
 
-	private function _buildData()
+	private function _buildData(): void
 	{
 		$data = $this->_getInput();
 
@@ -80,6 +80,9 @@ class Request
 		$this->_data = $data;
 	}
 
+	/**
+	 * @return array
+	 */
 	private function _getInput(): array
 	{
 		$requestArr = $_REQUEST;

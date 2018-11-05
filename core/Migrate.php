@@ -5,14 +5,23 @@ namespace Core;
 
 abstract class Migrate
 {
+	/**
+	 * @var \SQLite3
+	 */
 	protected $_connection;
 
+	/**
+	 * Migrate constructor.
+	 */
 	public function __construct()
 	{
 		$this->_connection = DB::getInstance()->getConnection();
 	}
 
-	public function run()
+	/**
+	 * @throws Exception
+	 */
+	public function run(): void
 	{
 		try {
 			$this->up();
@@ -22,7 +31,7 @@ abstract class Migrate
 		}
 	}
 
-	private function updateLastMigrate()
+	private function updateLastMigrate(): void
 	{
 		$config = ConfigIni::getInstance()['migrate'];
 

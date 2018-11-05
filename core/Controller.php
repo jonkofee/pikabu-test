@@ -13,6 +13,9 @@ abstract class Controller
 	 */
 	private $_response;
 
+	/**
+	 * @var array | null
+	 */
 	private $_currentUser;
 
 	/**
@@ -82,12 +85,19 @@ abstract class Controller
 		return $this;
 	}
 
+	/**
+	 * @return array|null
+	 */
 	protected function getCurrentUser()
 	{
 		return $this->_currentUser;
 	}
 
-	public function validate(array $fields)
+	/**
+	 * @param array $fields
+	 * @throws Exception
+	 */
+	public function validate(array $fields): void
 	{
 		$errors = [];
 
