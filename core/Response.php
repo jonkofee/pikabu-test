@@ -18,7 +18,7 @@ class Response
 	/**
 	 * @var array
 	 */
-	private $_body;
+	private $_body = [];
 
 	/**
 	 * Response constructor.
@@ -63,7 +63,9 @@ class Response
 	 */
 	public function setBody($body): self
 	{
-		$this->_body = $body;
+		if ($body) {
+			$this->_body = $body;
+		}
 
 		return $this;
 	}
