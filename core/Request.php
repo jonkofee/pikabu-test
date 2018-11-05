@@ -18,7 +18,7 @@ class Request
 	/**
 	 * @var array
 	 */
-	private $_data;
+	private $_data = [];
 
 	/**
 	 * Request constructor.
@@ -27,7 +27,8 @@ class Request
 	{
 		$this->_method 	= $_SERVER['REQUEST_METHOD'];
 		$this->_path 		= $_SERVER['REQUEST_URI'];
-		$this->_data 		= array_merge($_GET, $_POST);
+
+		$this->_buildData();
 	}
 
 	/**
@@ -60,7 +61,23 @@ class Request
 	 */
 	public function __get(string $name)
 	{
-		return $this->_data[$name];
+		return $this->_data[$name] ?? null;
+	}
+
+	private function _buildData()
+	{
+		$data = $_REQUEST;
+
+		foreach ($data as $key => &$value) {
+			$value = trim($value);
+			$value = \SQLite3::escapeString($value);
+
+			if (preg_match('/^(\d+)$/', $value)) {
+				$value = (int) $value;
+			}
+		}
+
+		$this->_data = $data;
 	}
 
 }
