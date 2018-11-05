@@ -46,10 +46,11 @@ class Dispatcher
 	 */
 	public function handle()
 	{
+		$this->_checkAccess();
+
 		$controller = $this->_getController();
 		$actionName = $this->_getAction();
 
-		$this->_checkAccess($controller, $actionName);
 
 		$response = $controller->$actionName();
 
@@ -77,16 +78,14 @@ class Dispatcher
 	}
 
 	/**
-	 * @param Controller $controller
-	 * @param string $method
 	 * @return bool
 	 * @throws \ReflectionException | \Exception
 	 */
-	private function _checkAccess(Controller $controller, string $method)
+	private function _checkAccess()
 	{
-		$reflector = new \ReflectionClass($controller);
+		$reflector = new \ReflectionClass('Controller\\' . $this->_router->getController());
 
-		$methodDoc = $reflector->getMethod($method . 'Action')->getDocComment();
+		$methodDoc = $reflector->getMethod($this->_getAction() . 'Action')->getDocComment();
 
 		if (!$methodDoc || !preg_match('/@private/', $methodDoc)) {
 			return true;
@@ -103,6 +102,8 @@ class Dispatcher
 		if (!$currentUser) {
 			throw new \Exception("Доступ запрещен", 204);
 		}
+
+		$this->_currentUser = $currentUser;
 
 		return true;
 	}
