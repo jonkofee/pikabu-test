@@ -31,6 +31,17 @@ class User extends Model
 		];
 	}
 
+	public function getUserByToken(string $token)
+	{
+		$result = $this->query("
+			SELECT * FROM `users` WHERE `token` = :token
+		", [
+			[':token', $token, SQLITE3_TEXT]
+		]);
+
+		return $result;
+	}
+
 	private function _generateToken()
 	{
 		return bin2hex(openssl_random_pseudo_bytes(64));
