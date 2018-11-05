@@ -26,9 +26,29 @@ class User extends Model
 			[':token', $token, SQLITE3_TEXT]
 		]);
 
-		return [
-			'access_token' => $token
-		];
+		return $token;
+	}
+
+	public function edit(int $id, string $name, string $password, string  $email, string $dob, int $gender, $phone)
+	{
+		$result = $this->query("
+			UPDATE `users` 
+			SET `name` = :name,
+					`password` = :password,
+					`email` = :email,
+					`dob` = :dob,
+					`gender` = :gender,
+					`phone` = :phone
+			WHERE `id` = :id;
+	 	", [
+			[':name', $name, SQLITE3_TEXT],
+			[':password', $password, SQLITE3_TEXT],
+			[':email', $email, SQLITE3_TEXT],
+			[':dob', $dob, SQLITE3_TEXT],
+			[':gender', $gender, SQLITE3_INTEGER],
+			[':phone', $phone, SQLITE3_TEXT],
+			[':id', $id, SQLITE3_INTEGER]
+		]);
 	}
 
 	public function getUserByToken(string $token)

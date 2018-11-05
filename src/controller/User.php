@@ -19,7 +19,29 @@ class User extends Controller
 
 		$model = new \Model\User();
 
-		return $model->add($name, $password, $email, $dob, $gender, $phone, $ip);
+		$token = $model->add($name, $password, $email, $dob, $gender, $phone, $ip);
+
+		return [
+			'access_token' => $token
+		];
+	}
+
+	/**
+	 * @private
+	 */
+	public function editAction()
+	{
+		$id 				= $this->getCurrentUser()['id'];
+		$name 			= $this->name;
+		$password 	= $this->password;
+		$email 			= $this->email;
+		$dob 				= (new \DateTime($this->dob))->format('Y-m-d');
+		$gender 		= $this->gender | 0;
+		$phone 			= $this->phone;
+
+		$model = new \Model\User();
+
+		return $model->edit($id, $name, $password, $email, $dob, $gender, $phone);
 	}
 
 }
