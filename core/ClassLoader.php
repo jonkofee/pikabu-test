@@ -27,7 +27,7 @@ class ClassLoader
 			}
 		}
 
-		throw new \Exception("Не получается загрузить класс $class");
+		throw new Exception("Не получается загрузить класс $class");
 	}
 
 	private static function loadFile($file) : bool

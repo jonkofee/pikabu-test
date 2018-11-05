@@ -23,7 +23,7 @@ abstract class Model
 		$result = $query->execute();
 
 		if ($result === false){
-			throw new \Exception($this->connection->lastErrorMsg(), 500);
+			throw new Exception($this->connection->lastErrorMsg(), 500);
 		}
 
 		return $result;

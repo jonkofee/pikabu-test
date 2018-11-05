@@ -18,7 +18,7 @@ abstract class Migrate
 			$this->up();
 			$this->updateLastMigrate();
 		} catch (\Exception $e) {
-				throw new \Exception($this->_connection->lastErrorMsg());
+				throw new Exception($this->_connection->lastErrorMsg());
 		}
 	}
 

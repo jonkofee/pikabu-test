@@ -95,13 +95,13 @@ class Dispatcher
 		$token = $this->_request->access_token;
 
 		if (!$token) {
-			throw new \Exception("Доступ к закрытому методу без 'access_token' запрещен", 204);
+			throw new Exception("Доступ к закрытому методу без 'access_token' запрещен", 204);
 		}
 
 		$currentUser = (new User())->getUserByToken($token);
 
 		if (!$currentUser) {
-			throw new \Exception("Доступ запрещен", 204);
+			throw new Exception("Доступ запрещен", 204);
 		}
 
 		$this->_currentUser = $currentUser;

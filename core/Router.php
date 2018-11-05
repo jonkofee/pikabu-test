@@ -61,7 +61,7 @@ class Router
 	public function getController(): string
 	{
 		if (!$this->_controller) {
-			throw new \Exception("Не установлен контроллер для маршрута '{$this->_request->getMethod()} {$this->_request->getPath()}'", 500);
+			throw new Exception("Не установлен контроллер для маршрута '{$this->_request->getMethod()} {$this->_request->getPath()}'", 500);
 		}
 
 		return $this->_controller;
@@ -74,7 +74,7 @@ class Router
 	public function getAction(): string
 	{
 		if (!$this->_action) {
-			throw new \Exception("Не установлен метод-обработчик для маршрута '{$this->_request->getMethod()} {$this->_request->getPath()}'", 500);
+			throw new Exception("Не установлен метод-обработчик для маршрута '{$this->_request->getMethod()} {$this->_request->getPath()}'", 500);
 		}
 
 		return $this->_action;
@@ -99,7 +99,7 @@ class Router
 			}
 		}
 
-		throw new \Exception('Такой маршрут отсутствует', 404);
+		throw new Exception('Такой маршрут отсутствует', 404);
 	}
 
 }

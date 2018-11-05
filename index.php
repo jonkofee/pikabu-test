@@ -13,5 +13,5 @@ try {
 
 	echo $dispatcher->handle();
 } catch (\Exception $e) {
-	echo new \Core\Response($e->getMessage(), $e->getCode() | 500);
+	echo new \Core\Response($e->getMessage(), $e->getCode());
 }

@@ -11,7 +11,7 @@ class ConfigIni extends \ArrayObject
 		$config = parse_ini_file($path, true);
 
 		if ($config === false) {
-			throw new \Exception("Не удаётся загрузить конфигурационый файл: $path");
+			throw new Exception("Не удаётся загрузить конфигурационый файл: $path");
 		}
 
 		$this->exchangeArray($config);

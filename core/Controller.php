@@ -40,7 +40,7 @@ abstract class Controller
 		$actionName = $name . 'Action';
 
 		if (!method_exists($this, $actionName)) {
-			throw new \Exception("Метод '$name' не существует в контроллере '" . get_class($this) . "'", 500);
+			throw new Exception("Метод '$name' не существует в контроллере '" . get_class($this) . "'", 500);
 		}
 
 		$result = $this->$actionName();
@@ -108,7 +108,7 @@ abstract class Controller
 		}
 
 		if ($errors) {
-			throw new \Exception(implode(', ', $errors), 400);
+			throw new Exception(implode(', ', $errors), 400);
 		}
 	}
 
