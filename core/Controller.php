@@ -87,4 +87,29 @@ abstract class Controller
 		return $this->_currentUser;
 	}
 
+	public function validate()
+	{
+		$validateRules = $this->validateRules;
+		$errors = [];
+
+		foreach ($validateRules as $key => $validateRule) {
+			if (isset($validateRule['regexp'])) {
+				if (!preg_match($validateRule['regexp'], $this->{$key})) {
+					$errors[] = $validateRule['message'];
+				}
+				continue;
+			}
+
+			if (isset($validateRule['filter'])) {
+				if (!filter_var($this->{$key}, $validateRule['filter'])) {
+					$errors[] = $validateRule['message'];
+				}
+			}
+		}
+
+		if ($errors) {
+			throw new \Exception(implode(', ', $errors), 400);
+		}
+	}
+
 }

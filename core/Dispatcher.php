@@ -51,6 +51,7 @@ class Dispatcher
 		$controller = $this->_getController();
 		$actionName = $this->_getAction();
 
+		$controller->validate();
 
 		$response = $controller->$actionName();
 

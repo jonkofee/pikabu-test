@@ -7,6 +7,17 @@ use Core\Controller;
 class Auth extends Controller
 {
 
+	protected $validateRules = [
+		'email' => [
+			'filter' => FILTER_VALIDATE_EMAIL,
+			'message' => 'Не верный формат почты'
+		],
+		'password' => [
+			'regexp' => '/^.{6,255}$/',
+			'message' => 'Пароль должен состоять от 6 до 255 символов'
+		]
+	];
+
 	public function indexAction()
 	{
 		$email 		= $this->email;
