@@ -107,6 +107,34 @@ class User extends Model
 		return $data;
 	}
 
+	public function getUserByEmailAndPassword(string $email, string $password)
+	{
+		$result = $this->query("
+			SELECT * FROM `users` WHERE `email` = :email AND `password` = :password
+		", [
+			[':email', $email, SQLITE3_TEXT],
+			[':password', $password, SQLITE3_TEXT]
+		]);
+
+		return $result->fetchArray(SQLITE3_ASSOC);
+	}
+
+	public function getNewToken(int $id)
+	{
+		$token = $this->_generateToken();
+
+		$this->query("
+			UPDATE `users` 
+			SET `token` = :token
+			WHERE `id` = :id;
+	 	", [
+			[':token', $token, SQLITE3_TEXT],
+			[':id', $id, SQLITE3_INTEGER]
+		]);
+
+		return $token;
+	}
+
 	private function _generateToken()
 	{
 		return bin2hex(openssl_random_pseudo_bytes(64));
