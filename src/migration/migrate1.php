@@ -2,7 +2,6 @@
 
 namespace Migration;
 
-use Core\DB;
 use Core\Migrate;
 
 class migrate1 extends Migrate
