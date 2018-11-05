@@ -26,7 +26,7 @@ abstract class Model
 			throw new \Exception($this->connection->lastErrorMsg(), 500);
 		}
 
-		return $result->fetchArray(SQLITE3_ASSOC);
+		return $result;
 	}
 
 }

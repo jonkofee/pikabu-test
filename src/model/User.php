@@ -69,7 +69,42 @@ class User extends Model
 			[':token', $token, SQLITE3_TEXT]
 		]);
 
-		return $result;
+		return $result->fetchArray(SQLITE3_ASSOC);
+	}
+
+	public function getUsersByFilter($gender, $ageMin, $ageMax)
+	{
+		$queryStr = "SELECT id, name, gender, cast(strftime('%Y.%m%d', '2019-04-15') - strftime('%Y.%m%d', dob) as int) as age FROM users";
+
+		$filters = [];
+
+		if (!is_null($gender)) {
+			$filters[] = '`gender` = :gender';
+		}
+		if (!is_null($ageMin)) {
+			$filters[] = '`age` >= :ageMin';
+		}
+		if (!is_null($ageMax)) {
+			$filters[] = '`age` < :ageMax';
+		}
+
+		if ($filters) {
+			$queryStr .= " WHERE " . implode(' AND ', $filters);
+		}
+
+		$result = $this->query($queryStr, [
+			[':gender', $gender, SQLITE3_INTEGER],
+			[':ageMin', $ageMin, SQLITE3_INTEGER],
+			[':ageMax', $ageMax, SQLITE3_INTEGER]
+		]);
+
+		$data = [];
+
+		while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+			$data[] = $row;
+		}
+
+		return $data;
 	}
 
 	private function _generateToken()

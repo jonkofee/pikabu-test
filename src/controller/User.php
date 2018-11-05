@@ -71,4 +71,15 @@ class User extends Controller
 		return $model->delete($id);
 	}
 
+	public function listAction()
+	{
+		$gender = $this->gender;
+		$ageMin = $this->age_min;
+		$ageMax = $this->age_max;
+
+		$model = new \Model\User();
+
+		return $model->getUsersByFilter($gender, $ageMin, $ageMax);
+	}
+
 }
