@@ -13,16 +13,20 @@ abstract class Controller
 	 */
 	private $_response;
 
+	private $_currentUser;
+
 	/**
 	 * Controller constructor.
 	 * @param Request $request
 	 * @param Response $response
 	 */
-	public function __construct(Request $request, Response $response)
+	public function __construct(Request $request, Response $response, $currentUser)
 	{
 		$this->_request = $request;
 
 		$this->_response = $response;
+
+		$this->_currentUser = $currentUser;
 	}
 
 	/**
@@ -76,6 +80,11 @@ abstract class Controller
 		$this->_response->addHeader($key, $value);
 
 		return $this;
+	}
+
+	protected function getCurrentUser()
+	{
+		return $this->_currentUser;
 	}
 
 }
