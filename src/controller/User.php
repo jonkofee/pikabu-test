@@ -44,4 +44,31 @@ class User extends Controller
 		return $model->edit($id, $name, $password, $email, $dob, $gender, $phone);
 	}
 
+	/**
+	 * @private
+	 */
+	public function infoAction()
+	{
+		$currentUser = $this->getCurrentUser();
+
+		return [
+			'name' => $currentUser['name'],
+			'dob' => $currentUser['dob'],
+			'gender' => $currentUser['gender'],
+			'phone' => $currentUser['phone']
+		];
+	}
+
+	/**
+	 * @private
+	 */
+	public function deleteAction()
+	{
+		$id = $this->getCurrentUser()['id'];
+
+		$model = new \Model\User();
+
+		return $model->delete($id);
+	}
+
 }

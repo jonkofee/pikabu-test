@@ -31,7 +31,7 @@ class User extends Model
 
 	public function edit(int $id, string $name, string $password, string  $email, string $dob, int $gender, $phone)
 	{
-		$result = $this->query("
+		$this->query("
 			UPDATE `users` 
 			SET `name` = :name,
 					`password` = :password,
@@ -47,6 +47,16 @@ class User extends Model
 			[':dob', $dob, SQLITE3_TEXT],
 			[':gender', $gender, SQLITE3_INTEGER],
 			[':phone', $phone, SQLITE3_TEXT],
+			[':id', $id, SQLITE3_INTEGER]
+		]);
+	}
+
+	public function delete(int $id)
+	{
+		$this->query("
+			DELETE FROM `users`
+			WHERE `id` = :id;
+	 	", [
 			[':id', $id, SQLITE3_INTEGER]
 		]);
 	}
