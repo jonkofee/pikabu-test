@@ -66,7 +66,7 @@ class Request
 
 	private function _buildData()
 	{
-		$data = $_REQUEST;
+		$data = $this->_getInput();
 
 		foreach ($data as $key => &$value) {
 			$value = trim($value);
@@ -78,6 +78,25 @@ class Request
 		}
 
 		$this->_data = $data;
+	}
+
+	private function _getInput(): array
+	{
+		$requestArr = $_REQUEST;
+		$contentType = $_SERVER['HTTP_CONTENT_TYPE'];
+		$input = file_get_contents("php://input");
+		$tmp = [];
+
+		switch ($contentType) {
+			case 'application/x-www-form-urlencoded':
+				parse_str($input, $tmp);
+				break;
+			case 'application/json':
+				$tmp = json_decode($input, true);
+				break;
+		}
+
+		return array_merge($requestArr, $tmp);
 	}
 
 }
