@@ -27,6 +27,11 @@ class Auth extends Controller
 	 */
 	public function indexAction(): string
 	{
+		$this->validate([
+			'email',
+			'password'
+		]);
+
 		$email 		= $this->email;
 		$password = $this->password;
 
