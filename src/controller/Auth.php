@@ -32,9 +32,9 @@ class Auth extends Controller
 
 		$model = new \Model\User();
 
-		$user = $model->getUserByEmailAndPassword($email, $password);
+		$user = $model->getUserByEmail($email);
 
-		if (!$user) {
+		if (!$user || !password_verify($password, $user['password'])) {
 			throw new \Exception("Не верная почта или пароль", 400);
 		}
 

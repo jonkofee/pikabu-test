@@ -61,7 +61,7 @@ class User extends Controller
 		]);
 
 		$name 			= $this->name;
-		$password 	= $this->password;
+		$password 	= password_hash($this->password, PASSWORD_DEFAULT);
 		$email 			= $this->email;
 		$dob 				= (new \DateTime($this->dob))->format('Y-m-d');
 		$gender 		= $this->gender | 0;

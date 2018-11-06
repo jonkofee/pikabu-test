@@ -107,13 +107,12 @@ class User extends Model
 		return $data;
 	}
 
-	public function getUserByEmailAndPassword(string $email, string $password)
+	public function getUserByEmail(string $email)
 	{
 		$result = $this->query("
-			SELECT * FROM `users` WHERE `email` = :email AND `password` = :password
+			SELECT * FROM `users` WHERE `email` = :email
 		", [
-			[':email', $email, SQLITE3_TEXT],
-			[':password', $password, SQLITE3_TEXT]
+			[':email', $email, SQLITE3_TEXT]
 		]);
 
 		return $result->fetchArray(SQLITE3_ASSOC);
